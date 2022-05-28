@@ -1,0 +1,28 @@
+@import "./components/NavBar/navBar";
+@import "./pages/Home/home";
+@import "./pages/PlanetsList/planetList";
+@import "./pages/PlanetDetail/_planetDetail";
+@import "./pages/FilmsList/_filmList";
+@import "./pages/CharacterList/_characterList";
+@import "./pages/CharacterDetail/characterDetail";
+@import "./pages/Register/registerPage";
+@import "./pages/Login/loginPage";
+@import "./components/FlipCardFilm/flipCardFilm";
+@import "./components/FlipCardCharacter/flipCardCharacter";
+
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(47, 47, 47);
+  background-image: url("https://i.pinimg.com/originals/33/3a/16/333a168c0614c2ac6af480afcc9adab3.jpg");
+}
+
+.App {
+  display: flex;
+  justify-content: flex-start;
+  font-family: Calibri;
+  font-size: 24px;
+  flex-wrap: wrap;
+}
+
+
