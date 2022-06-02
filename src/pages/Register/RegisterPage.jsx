@@ -11,7 +11,6 @@ const RegisterPage = () => {
   const { register } = useUser();
   const navigate = useNavigate();
 
-
   const validate = (values) => {
     const errors = {};
 
@@ -53,81 +52,110 @@ const RegisterPage = () => {
     },
     validate,
     onSubmit: (values) => {
-      
-        register(values);
-        navigate("/login");
+      register(values);
+      navigate("/login");
     },
   });
 
   return (
     <div className="register-container">
-      <h1>Register</h1>
-      <form onSubmit={formik.handleSubmit}>
+      <div className="register-container__titleContainer">
+        <h1 className="register-container__titleContainer__title">Register</h1>
+      </div>
+      <form className="register-container__form" onSubmit={formik.handleSubmit}>
+        <div className="register-container__form__element">
+          <label
+            className="register-container__form__element__label"
+            htmlFor="name"
+          >
+            Name
+          </label>
+          <input
+            className="register-container__form__element__input"
+            id="name"
+            name="name"
+            type="text"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.name}
+            placeholder="Write your name"
+          />
+          {formik.touched.name && formik.errors.name ? (
+            <div className="">{formik.errors.name}</div>
+          ) : null}
+        </div>
 
-        <label htmlFor="name">Name</label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.name}
-          placeholder="Write your name"
-        />
-        {formik.touched.name && formik.errors.name ? (
-          <div className="">{formik.errors.name}</div>
-        ) : null}
+        <div className="register-container__form__element">
+          <label
+            className="register-container__form__element__label"
+            htmlFor="email"
+          >
+            Email
+          </label>
+          <input
+            className="register-container__form__element__input"
+            id="email"
+            name="email"
+            type="email"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+            placeholder="Write your email"
+          />
+          {formik.touched.email && formik.errors.email ? (
+            <div className="error">{formik.errors.email}</div>
+          ) : null}
+        </div>
+        <div className="register-container__form__element">
+          <label
+            className="register-container__form__element__label"
+            htmlFor="password"
+          >
+            Password
+          </label>
+          <input
+            className="register-container__form__element__input"
+            v
+            id="password"
+            name="password"
+            type="password"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.password}
+            placeholder="Choose password"
+            autoComplete="off"
+          />
+          {formik.touched.password && formik.errors.password ? (
+            <div className="error">{formik.errors.password}</div>
+          ) : null}
+        </div>
 
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.email}
-          placeholder="Write your email"
+        <div className="register-container__form__element">
+          <label
+            className="register-container__form__element__label"
+            htmlFor="repassword"
+          >
+            Repeat Password
+          </label>
+          <input
+            className="register-container__form__element__input"
+            id="repassword"
+            name="repassword"
+            type="password"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.repassword}
+            placeholder="repeat password"
+            autoComplete="off"
+          />
+          {formik.touched.repassword && formik.errors.repassword ? (
+            <div className="error">{formik.errors.repassword}</div>
+          ) : null}
+        </div>
 
-        />
-        {formik.touched.email && formik.errors.email ? (
-          <div className="error">{formik.errors.email}</div>
-        ) : null}
-
-        <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.password}
-          placeholder="Choose password"
-          autoComplete="off"
-
-        />
-        {formik.touched.password && formik.errors.password ? (
-          <div className="error">{formik.errors.password}</div>
-        ) : null}
-
-        <label htmlFor="repassword">Password again</label>
-        <input
-          id="repassword"
-          name="repassword"
-          type="password"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.repassword}
-          placeholder="repeat password"
-          autoComplete="off"
-
-
-        />
-        {formik.touched.repassword && formik.errors.repassword ? (
-          <div className="error">{formik.errors.repassword}</div>
-        ) : null}
-
-        <button type="submit">Register</button>
-
+        <button className="register-container__form__button" type="submit">
+          Register
+        </button>
       </form>
     </div>
   );

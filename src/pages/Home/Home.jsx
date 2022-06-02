@@ -2,7 +2,7 @@ import React from "react";
 
 const Home = () => {
   return (
-    <div className="home">
+    <div className="home row h-75">
       <h1 className="home__title">Welcome to Star Wars Universe!</h1>
 
       <div className="home__container">

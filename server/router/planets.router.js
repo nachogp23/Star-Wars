@@ -3,7 +3,6 @@ const express = require("express");
 //Require af LOCAL files 
 const Planet = require("../models/Planet");
 //Import of the Midleware to protect routes
-const authentication = require("../utils/auth");
 //------------------ END IMPORTS -----------------------
 
 //Create Planets router

@@ -1,5 +1,5 @@
 //------------------START IMPORTS-----------------
-import {useContext, useState} from 'react';
+import {useContext, useState, useEffect} from 'react';
 //Import LOCAL files
 import { filmApi } from "../services";
 import  MainContext from '../context/MainContext';
@@ -7,7 +7,25 @@ import  MainContext from '../context/MainContext';
 const useFilms = () => {
 
     const [films, setFilms] = useState([]);
-    const { setFilmContext } = useContext(MainContext);
+    const { filmContext, setFilmContext } = useContext(MainContext);
+
+    useEffect(() => {
+        const getFilms = async () => {          
+            try{await filmApi.getAll()
+                 .then((res) => {
+                     setFilmContext(res.data);
+                     
+                 });
+             } catch (err) {
+                 console.error(err);
+             }                                 
+         };
+        if (!filmContext.length) {
+          getFilms();
+        } else {
+          setFilms(filmContext);
+        }
+      }, [filmContext, setFilmContext]);
 
     //Method to get all Films from server and save it on context and films state
     const getFilms = async () => {          

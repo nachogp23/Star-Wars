@@ -7,13 +7,17 @@
   //padding: 0 20px;
   background-color: rgb(255, 255, 255);
 
+  @include tablet {
+    justify-content: center;
+  }
+
   &__links {
     margin-left: 0%;
     width: 620px;
     display: flex;
     flex-direction: row;
     //justify-self: end;
-    
+
     &__link {
       font-weight: bold;
       font-size: 20px;
@@ -25,25 +29,63 @@
         text-decoration: underline;
         text-decoration-color: red;
       }
-    }
 
-    &__button {
-      //font-family: Arial, Helvetica, sans-serif;
-      border: none;
-      background-color: red;
+      @include tablet {
+        font-size: 15px;
+      }
     }
   }
 
-  &__img {
-    //margin-left: 17%;
-    //display: inline-block;
-   
-
-    img {
+  &__imgCont {
+    &__img {
       height: 100px;
-      // position:absolute;
-      // top: 10px;
-      // right: 47%;
+    }
+
+    @include mobile {
+      //letter-spacing: 0.1rem;
+      //padding: 10px 0;
+      font-size: 15px;
+      display: none;
+    }
+  }
+
+  &__user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__name {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-weight: bold;
+      font-size: 18px;
+      @include tablet {
+        font-size: 10px;
+      }
+      
+    }
+
+    &__buttonsCont {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+
+      &__button {
+        border-radius: 5%;
+        font-size: 20px;
+        @include tablet {
+          font-size: 15px;
+        }
+
+        &--info {
+          background-color: rgb(0, 205, 0);
+        }
+
+        &--logout {
+          background-color: red;
+        }
+      }
     }
   }
 }

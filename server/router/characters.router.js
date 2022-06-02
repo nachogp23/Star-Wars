@@ -57,7 +57,7 @@ charactersRouter.get("/:id", (req, res, next) => {
 });
 
 //Route to create new character on DataBase
-charactersRouter.post("/", (req, res, next) => {
+charactersRouter.post("/", authentication, (req, res, next) => {
      
     const newCharacter = new Character(req.body);
     //console.log(req.body);
@@ -65,7 +65,7 @@ charactersRouter.post("/", (req, res, next) => {
 
     return newCharacter.save()
         .then(() => {
-            return res.status(201).json(`New Character created: ${newCharacter}`);
+            return res.status(201).json(newCharacter);
         })
         .catch(err => {
             const error = new Error(err);
@@ -75,7 +75,7 @@ charactersRouter.post("/", (req, res, next) => {
 });
 
 //Route to update Characters
-charactersRouter.put("/:id", async (req, res, next) => {
+charactersRouter.put("/:id", authentication,async (req, res, next) => {
     const id = req.params.id;
     return Character.findByIdAndUpdate(id, {$set: req.body}, {new: true})
         .then(characterUpdated => {
@@ -89,7 +89,7 @@ charactersRouter.put("/:id", async (req, res, next) => {
 });
 
 //Route to delete one Character
-charactersRouter.delete("/:id", (req, res, next) => {
+charactersRouter.delete("/:id", authentication,(req, res, next) => {
     const id = req.params.id;
     return Character.findByIdAndDelete(id)
         .then(() => {

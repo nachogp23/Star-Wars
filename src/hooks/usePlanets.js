@@ -1,5 +1,5 @@
 //------------------START IMPORTS-----------------
-import {useContext, useState} from 'react';
+import {useContext, useState, useEffect} from 'react';
 //Import LOCAL files
 import { planetApi } from "../services";
 import  MainContext from '../context/MainContext';
@@ -7,19 +7,27 @@ import  MainContext from '../context/MainContext';
 const usePlanets = () => {
 
     const [planets, setPlanets] = useState([]);
-    const { setPlanetContext } = useContext(MainContext);
+    const { planetContext, setPlanetContext } = useContext(MainContext);
 
     //Method to get all Planets from server and save it on context and planets state
-    const getPlanets = async () => {          
-       try{await planetApi.getAll()
-            .then((res) => {
-                setPlanetContext(res.data);
-                setPlanets(res.data);
-            });
-        } catch (err) {
-            console.error(err);
-        }                                 
-    };
+    useEffect(() => {
+        const getPlanets = async () => {          
+            try{await planetApi.getAll()
+                 .then((res) => {
+                     setPlanetContext(res.data);
+                 });
+             } catch (err) {
+                 console.error(err);
+             }                                 
+         };
+        if (!planetContext.length) {
+          getPlanets();
+        } else {
+          setPlanets(planetContext);
+        }
+      }, [planetContext, setPlanetContext]);
+    
+    
 
     const getPlanetsById = (id) => planets.find(({ _id }) => _id === id);
     
@@ -27,7 +35,7 @@ const usePlanets = () => {
     //Return the state with the planets and all the defined methods
     return {
         planets, 
-        getPlanets,
+        
         getPlanetsById,
     };           
 };

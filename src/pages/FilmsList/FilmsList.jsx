@@ -1,5 +1,4 @@
 //------------------START IMPORTS-----------------
-import { useEffect } from "react";
 //Import Local Files
 import {useFilms} from "../../hooks";
 import FlipCardFilm from "../../components/FlipCardFilm/FlipCardFilm";
@@ -8,20 +7,14 @@ import FlipCardFilm from "../../components/FlipCardFilm/FlipCardFilm";
 function FilmList() {
   
   //Use the custom hook to acces films data
-  const {films, getFilms} = useFilms();
+  const {films} = useFilms();
 
-  //Get all films when the page is created
-  useEffect(() => {
-    getFilms();
-  }, [])
-
-
-  return (
+   return (
       <div className="row h-75">
         <div className="col d-flex flex-column flex-md-row justify-content-around align-items-center cards-container">
           {films.map((film) => (           
             <FlipCardFilm 
-            key={film.episode_id} 
+            key={film._id} 
             film={film} />
           ))}
         </div>

@@ -1,71 +1,132 @@
+//------------------START IMPORTS-----------------
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useCharacters, useFilms, usePlanets } from "../../hooks";
+//Import Local Files
+import { useCharacters, useUser } from "../../hooks";
+import { planetApi } from "../../services";
+//------------------END IMPORTS------------------
 const CharacterDetail = () => {
-  
+  //Invoke removeCharacter method from custom hoos useCharacters
   const { removeCharacter } = useCharacters();
+  const { user } = useUser();
   const navigate = useNavigate();
-  
+
   //Using state to receive the Character Data
-  const {state} = useLocation();
-  const { currentCharacter } = state; 
-  const { _id, name, mass, height, birth_year, gender, image, home_world, films } = currentCharacter;
- 
+  const { state } = useLocation();
+  const { currentCharacter } = state;
+  const { _id, name, mass, height, birth_year, gender, image, home_world } =
+    currentCharacter;
+
   //On click delete Character and navigate to list after showing alarm i
   const handleDelete = () => {
     removeCharacter(_id);
     alert("Character deleted");
-    navigate("/character-list"); 
+    navigate("/character-list");
   };
 
   //On click navigate to Edit page
   const handleEdit = () => {
-    navigate("/edit-character", { state: { currentCharacter: currentCharacter } });
+    navigate("/edit-character", {
+      state: { currentCharacter: currentCharacter },
+    });
   };
-  
-  //---------------------------EXTRA--------------------------
-  // const [_films, setfilms] = useState();
-  // const [_planet, setPlanet] = useState();
+  //On click navigate to Planet Detail page
+  const goToPlanetDetail = () => {
+    navigate("/planet-detail", { state: { currentPlanet: planet } });
+  };
 
-  // useEffect(() => {
-    
-  //   getPlanets();
-  //   getFilms();
-    
-  //   setPlanet(getPlanetsById(home_world))
-  //   setfilms(films.map((film) => {return getFilmsById(film)}))
-    
-  // }, []);
-
-  // const { getPlanets, getPlanetsById } = usePlanets();
-  // const { getFilms, getFilmsById} = useFilms();
   //---------------------------EXTRA--------------------------
- 
+  const [planet, setPlanet] = useState({});
+  //const [myFilms, setMyFilms] = useState([]);
+
+  useEffect(() => {
+    //Use Home_world atribute (Planet ID) of currentCharacter Object to call the required planet from API
+    //Save the response from the call in planet State
+    planetApi.getOne(home_world).then((res) => setPlanet(res.data));
+
+    // console.log(films);
+    // const filmss = [];
+    // films.map((film) => (
+    //   filmApi.getOne(film)
+    //     .then(res => filmss.push(res.data))
+    //     .then(setMyFilms(filmss))
+
+    // )
+    // );
+    // setMyFilms(filmss)
+    // console.log(myFilms)
+  }, []);
+
+  //---------------------------EXTRA--------------------------
+
   return (
-    <div className="details-page__container">
-        <h1 className="planetDetails__title">{name}</h1>
-       
-        {/* <p><span> Name: </span>{name}</p> */}
-        <p><span> Born in: </span>{}</p>
-        {/* <p><span> Appears in: </span>{_films.map((film) => (film.title))}</p> */}
+    <div className="detail-page">
+      <div className="detail-page__container">
+        <img
+          className="detail-page__container__img"
+          src={image}
+          alt="character"
+        ></img>
 
+        <div className="detail-page__container__text">
+          <h1 className="detail-page__container__text__title">{name}</h1>
+          <p className="detail-page__container__text__info">
+            <span> Weight: </span>
+            {mass} Kg
+          </p>
+          <p className="detail-page__container__text__info">
+            <span> Height: </span>
+            {height} cm
+          </p>
+          <p className="detail-page__container__text__info">
+            <span> Gender: </span>
+            {gender}
+          </p>
+          <p className="detail-page__container__text__info">
+            <span> Birth Year: </span>
+            {birth_year}
+          </p>
 
-        
-        <button onClick={handleDelete}>Delete Character</button>
-        <button onClick={handleEdit}>Edit Character</button>
-        {/* <p><span> Population: </span>{details.population}</p>
-        <p><span> Diameter: </span>{details.diameter}</p>
-        <p><span> Gravity: </span>{details.gravity}</p>
-        <p><span> Orbital period: </span>{details.orbital_period}</p>
-        <p><span> Rotation period: </span>{details.rotation_period}</p>
-        <p><span> Surface water: </span>{details.surface_water}</p>
-        <p><span> Terrain: </span>{details.terrain}</p> */}
-        {/* <p>{details.films}</p> */}
-        
-        
+          <div className="detail-page__container__text__planet">
+            <span className="detail-page__container__text__planet__title">
+              Born in:
+            </span>
+            <div className="detail-page__container__text__planet__imgCont">
+              <img
+                className="detail-page__container__text__planet__imgCont__img"
+                src={planet.image}
+                alt="planet"
+              ></img>
+              <span
+                className="detail-page__container__text__planet__imgCont__link"
+                onClick={goToPlanetDetail}
+              >
+                {planet.name}
+              </span>
+            </div>
+          </div>
+          {user && user._id ? (
+            <div className="detail-page__container__text__buttons">
+              <button
+                className="detail-page__container__text__buttons__button detail-page__container__text__buttons__button--edit"
+                onClick={handleEdit}
+              >
+                Edit Character
+              </button>
+              <button
+                className="detail-page__container__text__buttons__button detail-page__container__text__buttons__button--delete"
+                onClick={handleDelete}
+              >
+                Delete Character
+              </button>
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
+      </div>
     </div>
-
-  )
+  );
 };
 
 export default CharacterDetail;

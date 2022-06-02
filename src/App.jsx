@@ -16,6 +16,7 @@ import FilmList from "./pages/FilmsList/FilmsList";
 import FilmDetail from "./pages/FilmDetail/FilmDetail";
 import RegisterPage from "./pages/Register/RegisterPage";
 import LoginPage from "./pages/Login/LoginPage";
+import UserInfo from "./pages/userInfo/UserInfo";
 
 //------------------END IMPORTS------------------
 
@@ -40,6 +41,8 @@ function App() {
         
         <Route path="register" element={<RegisterPage />} />
         <Route path="login" element={<LoginPage />} />
+        <Route path="user-info" element={<UserInfo />} />
+
       </Routes>
       <Footer />
     </>

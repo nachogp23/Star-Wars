@@ -11,21 +11,50 @@ const PlanetDetail = () => {
 
 
   return (
-    <div className="details-page__container">
-        {/* <h1 className="planetDetails__title">{details.name}</h1> */}
-       
-        <p><span> title: </span>{name}</p>
-        {/* <p><span> Population: </span>{details.population}</p>
-        <p><span> Diameter: </span>{details.diameter}</p>
-        <p><span> Gravity: </span>{details.gravity}</p>
-        <p><span> Orbital period: </span>{details.orbital_period}</p>
-        <p><span> Rotation period: </span>{details.rotation_period}</p>
-        <p><span> Surface water: </span>{details.surface_water}</p>
-        <p><span> Terrain: </span>{details.terrain}</p> */}
-        {/* <p>{details.films}</p> */}
+    <div className="detail-page">
+      
+      <div className="detail-page__container">
         
         
+        <img className="detail-page__container__img" src={image} alt="character"></img>
+        
+        <div className="detail-page__container__text">
+          <h1 className="detail-page__container__text__title">{name}</h1>
+          <p className="detail-page__container__text__info">
+            <span> rotation reriod: </span>
+            {rotation_period} days
+          </p>
+          <p className="detail-page__container__text__info">
+            <span> orbital period: </span>
+            {orbital_period} days
+          </p>
+          <p className="detail-page__container__text__info">
+            <span> diameter: </span>
+            {diameter} m
+          </p>
+          <p className="detail-page__container__text__info">
+            <span> climate: </span>
+            {climate}
+          </p>
+          <div className="detail-page__container__text__info" >
+            <span> terrain: </span>
+            <ul>
+              {terrain.map((terrain) => (
+                <li>{terrain}</li>
+              ))}
+            </ul>           
+          </div>
+          <p className="detail-page__container__text__info" >
+            <span> pupulation: </span>
+            {population} 
+          </p>
+          
+        </div>
+
+      </div>
+
     </div>
+  
 
   )
 };

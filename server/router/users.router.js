@@ -82,6 +82,8 @@ usersRouter.post("/signin", (req, res, next) => {
                 token: jwtToken,
                 expiresIn: 360,
                 _id: user._id,
+                email: user.email,
+                name: user.name
             });
         });
     });
